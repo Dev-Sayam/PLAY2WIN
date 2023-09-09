@@ -6,7 +6,8 @@ namespace TripleChanceProTimer
 {
     public class BetDeailsPrefabData : MonoBehaviour
     {
-        public TextMeshProUGUI claim;
+        public TextMeshProUGUI betType;
+        public TextMeshProUGUI digit;
         public TextMeshProUGUI play;
         public TextMeshProUGUI win;
     }

@@ -88,10 +88,12 @@ namespace TripleChanceProTimer
         public string Status;
         public string Win;
         public string ClaimDate;
-        public string Bets;
+      //  public string Bets;
         public string retMsg;
         public string retStatus;
+        public List<Bet> Bets;
     }
+
     [System.Serializable]
     public class Report_responceData
     {

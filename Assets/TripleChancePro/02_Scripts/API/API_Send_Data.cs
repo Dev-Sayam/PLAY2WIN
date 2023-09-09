@@ -18,6 +18,7 @@ namespace TripleChanceProTimer
         public string Digit;
         public string Qty;
         public string SDigit;
+        public string Win;
     }
     [System.Serializable]
     public class BookTicket_sendData
