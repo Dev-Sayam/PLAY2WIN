@@ -81,7 +81,7 @@ namespace TripleChanceProTimer
         }
         private void Start()
         {
-            userId =mainData.receivedData.UserID;
+            userId =mainData.receivedLoginData.UserID;
             Screen.sleepTimeout = SleepTimeout.NeverSleep;
             userIdText.text = userId;
             RetriveResults((OnSuccessData) =>

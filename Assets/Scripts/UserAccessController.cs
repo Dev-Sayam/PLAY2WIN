@@ -53,9 +53,9 @@ public class UserAccessController : MonoBehaviour
 		else
 		{
 			Debug.Log(www.downloadHandler.text);
-			mainData.receivedData = JsonUtility.FromJson<ReceivedLoginData>(www.downloadHandler.text);
+			mainData.receivedLoginData = JsonUtility.FromJson<ReceivedLoginData>(www.downloadHandler.text);
 			www.downloadHandler.Dispose();
-			if (mainData.receivedData.retMsg.Equals("Success"))
+			if (mainData.receivedLoginData.retMsg.Equals("Success"))
 			{
 				SceneManager.LoadScene(1);
 			}

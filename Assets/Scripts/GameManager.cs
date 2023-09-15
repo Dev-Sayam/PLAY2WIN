@@ -92,8 +92,8 @@ public class GameManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		userId.SetText(mainData.receivedData.UserID);
-		balance = int.Parse(mainData.receivedData.Balance);
+		userId.SetText(mainData.receivedLoginData.UserID);
+		balance = int.Parse(mainData.receivedLoginData.Balance);
 		selectedCoinAmt = 2;
 		originalBalance = balance;
 		ShowBalance();
@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
 
 	IEnumerator GetCurrentDrawDetailsResultCoroutine()
 	{
-		var drawDetails = new SendDrawDetailsCurrent(mainData.receivedData.UserID,
+		var drawDetails = new SendDrawDetailsCurrent(mainData.receivedLoginData.UserID,
 			"01", "1", "D", "Y");
 
 		var drawDetailsJson = JsonUtility.ToJson(drawDetails);
@@ -341,7 +341,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		var bookTicketDetails = new BookTicketDetails(
-			mainData.receivedData.UserID,
+			mainData.receivedLoginData.UserID,
 			mainData.pendingDrawDetails.GameID,
 			mainData.pendingDrawDetails.Draws[0].DrawTime,
 			betsDetails.ToArray()
@@ -366,7 +366,7 @@ public class GameManager : MonoBehaviour
 			Debug.Log(www.downloadHandler.text);
 			JObject bookTicketJson = JObject.Parse(www.downloadHandler.text);
 			int currentBalance = (int)bookTicketJson["Balance"];
-			mainData.receivedData.Balance = currentBalance.ToString();
+			mainData.receivedLoginData.Balance = currentBalance.ToString();
 			balance = originalBalance = currentBalance;
 			www.downloadHandler.Dispose();
 		}
