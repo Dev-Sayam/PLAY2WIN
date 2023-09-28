@@ -119,7 +119,7 @@ public class InfoScript : MonoBehaviour
 
 	IEnumerator GetTicketDetailsCoroutine()
 	{
-		var sendToViewTicketDetails = new SendToViewTicketDetails(mainData.receivedData.UserID, "01", "A");
+		var sendToViewTicketDetails = new SendToViewTicketDetails(mainData.receivedLoginData.UserID, "01", "A");
 		var sendToViewTicketDetailsJson = JsonUtility.ToJson(sendToViewTicketDetails);
 		print(sendToViewTicketDetailsJson);
 		UnityWebRequest www = UnityWebRequest.Post(ticketDetailsLink, sendToViewTicketDetailsJson);
@@ -171,7 +171,7 @@ public class InfoScript : MonoBehaviour
 
 	IEnumerator GetUserPlayDetailsForTicketCoroutine(string ticketID)
 	{
-		var sendTicketDetails = new SendTicketDetails(mainData.receivedData.UserID, ticketID);
+		var sendTicketDetails = new SendTicketDetails(mainData.receivedLoginData.UserID, ticketID);
 		var sendTicketDetailsJson = JsonUtility.ToJson(sendTicketDetails);
 		print(sendTicketDetailsJson);
 		UnityWebRequest www = UnityWebRequest.Post(userPlayDetailsLink, sendTicketDetailsJson);
@@ -251,7 +251,7 @@ public class InfoScript : MonoBehaviour
 
 	IEnumerator GetDateWiseReportCoroutine()
 	{
-		var sendReportDetails = new SendReportDetails(mainData.receivedData.UserID,
+		var sendReportDetails = new SendReportDetails(mainData.receivedLoginData.UserID,
 			fromDate, toDate);
 		var sendReportDetailsJson = JsonUtility.ToJson(sendReportDetails);
 		print(sendReportDetailsJson);

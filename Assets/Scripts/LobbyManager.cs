@@ -14,8 +14,8 @@ public class LobbyManager : MonoBehaviour
 
 	private void Start()
 	{
-		userIdText.text = "Welcome, " + mainData.receivedData.UserID;
-		pointsText.text = "POINTS : " +  mainData.receivedData.Balance;
+		userIdText.text = "Welcome, " + mainData.receivedLoginData.UserID;
+		pointsText.text = "POINTS : " +  mainData.receivedLoginData.Balance;
 	}
 
 	private void Update()

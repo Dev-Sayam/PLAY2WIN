@@ -3,7 +3,7 @@
 [CreateAssetMenu(fileName = "MainData", menuName = "ScriptableObjects/MainData")]
 public class MainData : ScriptableObject
 {
-	public ReceivedLoginData receivedData;
+	public ReceivedLoginData receivedLoginData;
 
 	public PendingDrawDetails pendingDrawDetails;
 
