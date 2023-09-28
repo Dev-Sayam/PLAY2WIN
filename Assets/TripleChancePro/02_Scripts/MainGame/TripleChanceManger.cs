@@ -67,11 +67,9 @@ namespace TripleChanceProTimer
             // Make sure user is on Android platform
             if (Application.platform == RuntimePlatform.Android)
             {
-
                 // Check if Back was pressed this frame
                 if (Input.GetKeyDown(KeyCode.Escape))
                 {
-
                     if (!backPopUp.activeInHierarchy)
                     {
                         backPopUp.SetActive(true);
@@ -108,13 +106,8 @@ namespace TripleChanceProTimer
                     Debug.LogError("system" + DateTime.Now);
                     Debug.LogError("api" + dateTime);
                     Debug.LogError(total_time);
-                    //if (total_time < 0)
-                    //{
-                    //    total_time += 120;
-                    //}
                     satrtingLoadingPanel.SetActive(false);
                     TotalBetAmountSet();
-                    //BalanceAmountSet(balanceAmount);
                     BetButtonClick(0);
                     TimerStart();
                     AllThreeButtonEnableDisable(false, false);
@@ -145,7 +138,6 @@ namespace TripleChanceProTimer
         IEnumerator Delay_Time()
         {
             time_Text.color = time_textColor[0];
-            //WinText.text = "0";
             ClearBet(false);
             isAllButtonDiasabled = false;
             temp_time = total_time;
@@ -185,7 +177,6 @@ namespace TripleChanceProTimer
                     OnTimer10SecondReached();
                 }
             }
-            //wheelController.PlaceBet(int.Parse(retrievesLast_N_Number_Of_Results_Response_D.Draws[0].Result));
             yield return new WaitForSecondsRealtime(Constant.TIMER_RECURSION_DELAY);
             RetriveResults((OnSuccessData) =>
             {
@@ -197,7 +188,6 @@ namespace TripleChanceProTimer
                 DateTime dateTime1;
                 DateTime.TryParse(retrievesLast_N_Number_Of_Results_Response_P.Now, out dateTime1);
                 total_time = (int)(dateTime - dateTime1).TotalSeconds;
-                //total_time = (int)(dateTime - System.DateTime.Now).TotalSeconds;
                 StartCoroutine(Delay_Time());
             }, "P");
         }
@@ -222,7 +212,6 @@ namespace TripleChanceProTimer
             {
                 DeselectRemoveButton();
             }
-            // AllThreeButtonEnableDisable(false);
         }
         public void EnableLastBetButton()
         {
@@ -252,7 +241,6 @@ namespace TripleChanceProTimer
         {
             SoundManager.instance.PlaySfx(5);
             panelSlide.CloseAllSlider();
-            //panelSlide.ClearAllBetText();
             foreach (ButtonTap item in allbetButtons)
             {
                 item.ClearBet(setBalanceAmount);
@@ -290,7 +278,6 @@ namespace TripleChanceProTimer
             if (selectedBetButtonId != null)
             {
                 allBetButton[(int)selectedBetButtonId].transform.GetChild(0).gameObject.SetActive(false);
-                // selectedBetButtonId = null;
             }
         }
         public void AllThreeButtonEnableDisable(bool active,bool activeRebet=true)
@@ -328,29 +315,12 @@ namespace TripleChanceProTimer
         private void OnTimer10SecondReached()
         {
             isAllButtonDiasabled = true;
-           // AllThreeButtonEnableDisable(false,false);
             ClearAllBetTextIncludingBetButtons();
             OnInfoCloseButtonClick();
             InfoButtonEnableDisable(false);
             BookTicket(() =>
             {
-            //RetriveResults((OnSuccessData) =>
-            //{
-            //    retrievesLast_N_Number_Of_Results_Response_D = OnSuccessData;
-            //    balanceAmount = retrievesLast_N_Number_Of_Results_Response_D.Balance;
-            //    winAmount = OnSuccessData.Draws[0].TotWin;
-            //    Debug.LogError(winAmount);
-            //    if (retrievesLast_N_Number_Of_Results_Response_D.Draws[0].XF == "N")
-            //    {
-
-            //        wheelController.multiplierObjId = 0;
-            //    }
-            //    else
-            //    {
-            //        wheelController.multiplierObjId = int.Parse(retrievesLast_N_Number_Of_Results_Response_D.Draws[0].XF.TrimEnd('X'));
-            //    }
-            //}, "D");
-            SaveDataForRebet();
+                SaveDataForRebet();
                 Invoke(nameof(GetResults), Constant.NO_MORE_BET_TIME);
             });
         }
