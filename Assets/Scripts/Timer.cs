@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+	[SerializeField] bool showMinsAndSecs;
 	public float timerTime = 120f;
 	[SerializeField] float noMoreBetsThresholdMin, noMoreBetsThresholdMax, lastChanceThresholdMin, lastChanceThresholdMax, fetchDrawResultsThresholdMin, fetchDrawResultsThresholdax;
 	[SerializeField] float placeBetsThresholdMin, placeBetsThresholdMax;
@@ -70,9 +71,18 @@ public class Timer : MonoBehaviour
 		while (timerTime >= 0)
 		{
 			timerTime -= Time.deltaTime;
-			int quotient = (int)timerTime / 60;
-			int remainder = (int)timerTime % 60;
-			timerText.SetText(quotient + ":" + remainder.ToString("D2"));
+			
+			if (showMinsAndSecs)
+			{
+				int quotient = (int)timerTime / 60;
+				int remainder = (int)timerTime % 60;
+				timerText.SetText(quotient + ":" + remainder.ToString("D2"));
+			}
+			else
+			{
+				int timeInInt = (int)timerTime;
+				timerText.SetText(timeInInt.ToString());
+			}
 
 			float drawTimeSpan = (float) currentDrawTime.Subtract(lastDrawTime).TotalSeconds;
 			timerBarForeground.fillAmount = timerTime / drawTimeSpan;

@@ -27,7 +27,7 @@ public class NumberButton : MonoBehaviour
 	{
 		button.onClick.AddListener(() =>
 		{
-			OnPressedButton(GameManager.Instance.selectedCoinAmt);
+			OnPressedButton(Spin2WinGameManager.Instance.selectedCoinAmt);
 		});
 	}
 
@@ -39,14 +39,14 @@ public class NumberButton : MonoBehaviour
 
 	public void OnPressedButton(int debitAmount)
 	{
-		if (GameManager.Instance.DebitBalance(debitAmount))
+		if (Spin2WinGameManager.Instance.DebitBalance(debitAmount))
 		{
 			Amount += debitAmount;
 			if (Amount != 0)
 			{
 				amountText.text = Amount.ToString();
 			}
-			GameManager.Instance.TotalPointsSpent += debitAmount;
+			Spin2WinGameManager.Instance.TotalPointsSpent += debitAmount;
 			LastStoredAmount = Amount;
 		}
 		else

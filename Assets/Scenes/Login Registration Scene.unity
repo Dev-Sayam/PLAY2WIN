@@ -301,7 +301,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loginUserIdField: {fileID: 1889680875795612366}
   loginPassField: {fileID: 1889680876498966868}
-  loginServerLink: http://78.159.103.149/play2win/applogin.php
+  loginServerLink: http://78.159.103.149/Play2win/appLogin.php
+  rememberMeToggle: {fileID: 1889680876860763583}
   mainData: {fileID: 11400000, guid: f510a62d9cd784642bf7549e658eac71, type: 2}
 --- !u!4 &1918042775
 Transform:
