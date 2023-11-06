@@ -302,6 +302,8 @@ MonoBehaviour:
   loginUserIdField: {fileID: 1889680875795612366}
   loginPassField: {fileID: 1889680876498966868}
   loginServerLink: http://78.159.103.149/play2win/applogin.php
+  rememberMeToggle: {fileID: 1889680876860763583}
+  loginBtn: {fileID: 1889680876142990910}
   mainData: {fileID: 11400000, guid: f510a62d9cd784642bf7549e658eac71, type: 2}
 --- !u!4 &1918042775
 Transform:
@@ -823,7 +825,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 1, b: 1, a: 0.5882353}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -1457,7 +1459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
