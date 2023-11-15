@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TripleChancePro/01_Scenes/TripleChancePro.unity
     guid: 5342e5c67fbd55a4c82c609ebfa0aa55
+  - enabled: 1
+    path: Assets/Khelo Jeeto/Scenes/KheloJeeto.unity
+    guid: 874d8a048f0eeb74586b86ac5e87b5bf
   m_configObjects: {}

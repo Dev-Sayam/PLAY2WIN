@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7b413493f278b428c82a222c3df736, type: 3}
+  m_Name: MainData
+  m_EditorClassIdentifier: 
+  receivedData:
+    UserID: 
+    retMsg: 
+    retStatus: 
+    Balance: 
+    IsLocked: 
+    Message: 
+    PID: 0
+    AutoClaim: 
+    Print: 
+    Assign: 
+    Games: []
+    Now: 
+  pendingDrawDetails:
+    retMsg: Success
+    retStatus: 200
+    Query: Draw
+    Now: 2023-10-28 11:54:33
+    GameID: 16
+    Date: 2023-10-28
+    Draws:
+    - GID: 2393
+      DrawDate: 2023-10-28
+      DrawTime: 11:55
+      Status: P
+  currentDrawDetails:
+    retMsg: Success
+    retStatus: 200
+    Query: Draw
+    Now: 2023-10-28 11:54:58
+    GameID: 16
+    Date: 2023-10-28
+    Draws:
+    - GID: 2393
+      DrawDate: 2023-10-28
+      DrawTime: 11:55
+      Status: R
+      Result: 07
+      XF: 1X
+      TotWin: 
+    WinDtls:
+      GIDGName: 
+      TicketID: 
+      Win: 
+      DrawDate: 
+      DrawTime: 
+    AutoClaimed: N
+    Balance: 
+  lastFewDrawDetails:
+    retMsg: 
+    retStatus: 
+    Query: 
+    Now: 
+    GameID: 
+    Date: 
+    Draws: []
+    WinDtls:
+      GIDGName: 
+      TicketID: 
+      Win: 
+      DrawDate: 
+      DrawTime: 
+    AutoClaimed: 
+    Balance: 
