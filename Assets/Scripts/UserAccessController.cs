@@ -11,19 +11,37 @@ public class UserAccessController : MonoBehaviour
 	[SerializeField] private InputField loginUserIdField;
 	[SerializeField] private InputField loginPassField;
 	[SerializeField] private string loginServerLink;
+	[SerializeField] private Toggle rememberMeToggle;
+	[SerializeField] private Button loginBtn;
 
 	[Space(20)]
 	[SerializeField] private MainData mainData;
 
-
-	// Start is called before the first frame update
 	void Start()
 	{
-
+		if (PlayerPrefs.HasKey("userId") && PlayerPrefs.HasKey("password"))
+		{
+			loginUserIdField.text = PlayerPrefs.GetString("userId");
+			loginPassField.text = PlayerPrefs.GetString("password");
+		}
 	}
 
 	public void OnPressedLogin()
 	{
+		loginBtn.interactable = false;
+		if (!string.IsNullOrEmpty(loginUserIdField.text) && !string.IsNullOrEmpty(loginPassField.text))
+		{
+			if (rememberMeToggle.isOn)
+			{
+				PlayerPrefs.SetString("userId", loginUserIdField.text);
+				PlayerPrefs.SetString("password", loginPassField.text);
+			}
+            else
+            {
+				PlayerPrefs.DeleteKey("userId");
+				PlayerPrefs.DeleteKey("password");
+			}
+		}
 		StartCoroutine(Login());
 	}
 
@@ -61,6 +79,7 @@ public class UserAccessController : MonoBehaviour
 			}
 		}
 
+		loginBtn.interactable = true;
 		www.Dispose();
 	}
 }

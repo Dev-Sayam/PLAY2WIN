@@ -22,6 +22,7 @@ namespace TripleChanceProTimer
         private int tempBetNumber;
         public int multiplierObjId;
         [SerializeField] private GameObject WinPopUp;
+        [SerializeField] private TextMeshProUGUI WinPopUpAmountText;
         public void PlaceBet(int betNumber)
         {
             circleAnim.transform.gameObject.SetActive(true);
@@ -58,6 +59,7 @@ namespace TripleChanceProTimer
             TripleChanceManger.instence.OnWheelRotateComplete();
             if (TripleChanceManger.instence.winAmount > 0)
             {
+                WinPopUpAmountText.text = TripleChanceManger.instence.winAmount.ToString();
                 StartCoroutine(DelayShow());
             }
             else

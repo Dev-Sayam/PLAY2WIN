@@ -11,7 +11,7 @@ namespace TripleChanceProTimer
     public class TripleChanceManger : MonoBehaviour
     {
         public static TripleChanceManger instence;
-        [SerializeField] private TextMeshProUGUI userIdText;
+        [SerializeField] private TextMeshProUGUI userIdText, drawTimeText, gIdText;
         [SerializeField] private WheelController wheelController;
         [SerializeField] private TextMeshProUGUI time_Text, last_Chance_text;
         [SerializeField] private Animator messageAnim;
@@ -38,6 +38,7 @@ namespace TripleChanceProTimer
         public int totalBetAmount;
         public float balanceAmount;
         [SerializeField] private TextMeshProUGUI[] allWinNumberText;
+        [SerializeField] private TextMeshProUGUI[] allWinMultiplierText;
         public TextMeshProUGUI WinText;
         [HideInInspector]public float winAmount;
          public string userId = "U002";
@@ -97,15 +98,18 @@ namespace TripleChanceProTimer
                     retrievesLast_N_Number_Of_Results_Response_P = OnSuccessData1;
                     string[] time = retrievesLast_N_Number_Of_Results_Response_P.Draws[0].DrawTime.Split(':');
                     string[] date = retrievesLast_N_Number_Of_Results_Response_P.Draws[0].DrawDate.Split('-');
-                   DateTime dateTime = new DateTime(int.Parse(date[0]), int.Parse(date[1]), int.Parse(date[2]), int.Parse(time[0]), int.Parse(time[1]), 0);
+                    DateTime dateTime = new DateTime(int.Parse(date[0]), int.Parse(date[1]), int.Parse(date[2]), int.Parse(time[0]), int.Parse(time[1]), 0);
                   
                     DateTime dateTime1;
-                   DateTime.TryParse(retrievesLast_N_Number_Of_Results_Response_P.Now, out dateTime1);
+                    DateTime.TryParse(retrievesLast_N_Number_Of_Results_Response_P.Now, out dateTime1);
                     total_time = (int)(dateTime - dateTime1).TotalSeconds;
                   
                     Debug.LogError("system" + DateTime.Now);
                     Debug.LogError("api" + dateTime);
                     Debug.LogError(total_time);
+
+                    drawTimeText.text = dateTime.ToString("hh:mm tt");
+                    gIdText.text = OnSuccessData1.Draws[0].GID;
                     satrtingLoadingPanel.SetActive(false);
                     TotalBetAmountSet();
                     BetButtonClick(0);
@@ -188,6 +192,9 @@ namespace TripleChanceProTimer
                 DateTime dateTime1;
                 DateTime.TryParse(retrievesLast_N_Number_Of_Results_Response_P.Now, out dateTime1);
                 total_time = (int)(dateTime - dateTime1).TotalSeconds;
+
+                drawTimeText.text = dateTime.ToString("hh:mm tt");
+                gIdText.text = OnSuccessData.Draws[0].GID;
                 StartCoroutine(Delay_Time());
             }, "P");
         }
@@ -424,6 +431,8 @@ namespace TripleChanceProTimer
             for (int i = 0; i < retrievesLast_N_Number_Of_Results_Response_D.Draws.Count; i++)
             {
                 allWinNumberText[i].text = retrievesLast_N_Number_Of_Results_Response_D.Draws[i].Result;
+                string xFVal = retrievesLast_N_Number_Of_Results_Response_D.Draws[i].XF;
+                allWinMultiplierText[i].text = xFVal == "N" ? xFVal : xFVal.ToLower();
             }
             wheelController.winShowText.text = retrievesLast_N_Number_Of_Results_Response_D.Draws[0].Result;
             if (ShowWinInSlideBar && retrievesLast_N_Number_Of_Results_Response_D != null && retrievesLast_N_Number_Of_Results_Response_D.Draws.Count > 0)
