@@ -58,6 +58,7 @@ public class UserAccessController : MonoBehaviour
 			if (mainData.receivedLoginData.retMsg.Equals("Success"))
 			{
 				SceneManager.LoadScene(1);
+				Debug.Log("Lobby Scene Loaded");
 			}
 		}
 
