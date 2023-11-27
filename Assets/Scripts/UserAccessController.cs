@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -14,8 +15,14 @@ public class UserAccessController : MonoBehaviour
 	[SerializeField] private Toggle rememberMeToggle;
 	[SerializeField] private Button loginBtn;
 
-	[Space(20)]
+    [Space(20)]
+	[SerializeField] private GameObject alert_ContactOffice;
+	[SerializeField] private Text errorText;
+
 	[SerializeField] private MainData mainData;
+
+	private string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	private string uniqueId = "";
 
 	void Start()
 	{
@@ -27,8 +34,9 @@ public class UserAccessController : MonoBehaviour
 	}
 
 	public void OnPressedLogin()
-	{
-		loginBtn.interactable = false;
+    {
+        errorText.text = "";
+        loginBtn.interactable = false;
 		if (!string.IsNullOrEmpty(loginUserIdField.text) && !string.IsNullOrEmpty(loginPassField.text))
 		{
 			if (rememberMeToggle.isOn)
@@ -36,11 +44,7 @@ public class UserAccessController : MonoBehaviour
 				PlayerPrefs.SetString("userId", loginUserIdField.text);
 				PlayerPrefs.SetString("password", loginPassField.text);
 			}
-            else
-            {
-				PlayerPrefs.DeleteKey("userId");
-				PlayerPrefs.DeleteKey("password");
-			}
+			uniqueId = PlayerPrefs.GetString(loginUserIdField.text, GenerateRandomUniqueID(12));
 		}
 		StartCoroutine(Login());
 	}
@@ -50,7 +54,8 @@ public class UserAccessController : MonoBehaviour
 		LoginDetails loginDetails = new LoginDetails(
 			loginUserIdField.text,
 			loginPassField.text,
-			SystemInfo.deviceUniqueIdentifier,
+			//SystemInfo.deviceUniqueIdentifier,
+			uniqueId,
 			"U",
 			"M");
 
@@ -73,14 +78,45 @@ public class UserAccessController : MonoBehaviour
 			Debug.Log(www.downloadHandler.text);
 			mainData.receivedLoginData = JsonUtility.FromJson<ReceivedLoginData>(www.downloadHandler.text);
 			www.downloadHandler.Dispose();
-			if (mainData.receivedLoginData.retMsg.Equals("Success"))
-			{
-				SceneManager.LoadScene(1);
-			}
-		}
+            switch (mainData.receivedLoginData.retMsg)
+            {
+                case "Success":
+                    PlayerPrefs.SetString(loginUserIdField.text, uniqueId);
+                    SceneManager.LoadScene(1);
+                    break;
+
+                case "Admin Approval Required":
+                case "Contact Admin":
+                    PlayerPrefs.SetString(loginUserIdField.text, uniqueId);
+                    alert_ContactOffice.SetActive(true);
+                    break;
+
+                case "Security Failed":
+					alert_ContactOffice.SetActive(true);
+					break;
+                case "Password Mismatch":
+                    errorText.text = "Invalid Credentials";
+                    break;
+
+                default:
+                    break;
+            }
+        }
 
 		loginBtn.interactable = true;
 		www.Dispose();
+    }
+
+    private string GenerateRandomUniqueID(int stringLength)
+    {
+		var stringChars = new char[stringLength];
+		var random = new System.Random();
+
+		for (int i = 0; i < stringLength; i++)
+		{
+			stringChars[i] = chars[random.Next(chars.Length)];
+		}
+		return new String(stringChars);
 	}
 }
 
