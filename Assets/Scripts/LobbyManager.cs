@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -5,8 +6,8 @@ using UnityEngine.UI;
 public class LobbyManager : MonoBehaviour
 {
 	[SerializeField] MainData mainData;
-	[SerializeField] Text userIdText;
-	[SerializeField] Text pointsText;
+	[SerializeField] TMP_Text userIdText;
+	[SerializeField] TMP_Text pointsText;
 	public void ChangeScene(string sceneName)
 	{
 		SceneManager.LoadScene(sceneName);
@@ -14,8 +15,9 @@ public class LobbyManager : MonoBehaviour
 
 	private void Start()
 	{
-		userIdText.text = "Welcome, " + mainData.receivedLoginData.UserID;
-		pointsText.text = "POINTS : " +  mainData.receivedLoginData.Balance;
+		//userIdText.text = "Welcome, " + mainData.receivedLoginData.UserID;
+		userIdText.text = mainData.receivedLoginData.UserID;
+		pointsText.text = mainData.receivedLoginData.Balance;
 	}
 
 	private void Update()
