@@ -5,12 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Login Registration Scene.unity
     guid: 4b4830e7f2589af44aa06fa940c0ec7a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Lobby Scene.unity
     guid: 344f59f2bd1faef40b0d8f6071017b2a
+  - enabled: 1
+    path: Assets/Scenes/LoginRegistrationSceneDublicate.unity
+    guid: 6f746e6b491fa8c40bbe5bc81f74ff51
+  - enabled: 1
+    path: Assets/Scenes/LobbySceneDublicate.unity
+    guid: b58d33504f35743459edbff1c37f4f5f
   - enabled: 1
     path: Assets/Scenes/Spin2Win Main Scene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
