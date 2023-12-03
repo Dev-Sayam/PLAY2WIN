@@ -171,12 +171,16 @@ namespace KheloJeeto
 
 		void ProcessTimer()
 		{
-			var timeOfDay = Convert.ToDateTime(mainData.pendingDrawDetails.Now).TimeOfDay;
-			var drawTime = Convert.ToDateTime(mainData.pendingDrawDetails.Draws[0].DrawTime).TimeOfDay;
+			
 
+            var timeOfDay = Convert.ToDateTime(mainData.pendingDrawDetails.Now).TimeOfDay;
+			var drawTime = Convert.ToDateTime(mainData.pendingDrawDetails.Draws[0].DrawTime).TimeOfDay;
+			Debug.Log(drawTime);
+			Debug.Log(timeOfDay);
 			timer.SetCurrentDrawTime(drawTime);
 			var remainingTime = drawTime.Subtract(timeOfDay);
 			print(remainingTime);
+			if(remainingTime.TotalSeconds>0)
 			timer.RunTimer((float)remainingTime.TotalSeconds);
 		}
 
@@ -602,7 +606,7 @@ namespace KheloJeeto
 		}
 		public void OnyesBtnClick()
 		{
-			SceneManager.LoadScene("Lobby Scene");
+			SceneManager.LoadScene("LobbyScene");
 		}
 
 		private void OnApplicationFocus(bool focus)

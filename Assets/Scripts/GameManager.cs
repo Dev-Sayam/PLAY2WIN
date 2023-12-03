@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
 
 	public void GoBackToLobby()
 	{
-		SceneManager.LoadScene("Lobby Scene");
+		SceneManager.LoadScene("LobbyScene");
 	}
 
 	public bool DebitBalance(int amount)
