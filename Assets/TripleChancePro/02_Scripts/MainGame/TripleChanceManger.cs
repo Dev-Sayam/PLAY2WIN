@@ -466,7 +466,7 @@ namespace TripleChanceProTimer
         }
         public void OnyesBtnClick()
         {
-            SceneManager.LoadScene("Lobby Scene");
+            SceneManager.LoadScene("LobbyScene");
         }
 
     }
