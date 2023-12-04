@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
 	[SerializeField] private MainData mainData;
 	[SerializeField] Timer timer;
+	[SerializeField] private GameObject backPopUp;
 	public UnityEvent OnWin;
 	private int totalPointsSpent;
 
@@ -100,7 +101,18 @@ public class GameManager : MonoBehaviour
 		GetLastFewDrawDetails();
 		SendPendingDrawDetails();
 	}
-
+	void Update()
+	{
+		// Make sure user is on Android platform
+		if (Application.platform == RuntimePlatform.Android)
+		{
+			// Check if Back was pressed this frame
+			if (Input.GetKeyDown(KeyCode.Escape) && !backPopUp.activeInHierarchy)
+			{
+				backPopUp.SetActive(true);
+			}
+		}
+	}
 	private void SendPendingDrawDetails()
 	{
 		StartCoroutine(SendPendingDrawDetailsCoroutine());
