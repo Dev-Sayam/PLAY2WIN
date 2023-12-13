@@ -100,6 +100,7 @@ public class InfoScript : MonoBehaviour
 	{
 		Destroy(fromCalenderUI);
 		calenderParentT.gameObject.SetActive(false);
+		if (string.IsNullOrWhiteSpace(date)) return;
 		fromDate = date;
 		fromDateText.SetText(fromDate);
 	}
@@ -108,6 +109,7 @@ public class InfoScript : MonoBehaviour
 	{
 		Destroy(toCalenderUI);
 		calenderParentT.gameObject.SetActive(false);
+		if (string.IsNullOrWhiteSpace(date)) return;
 		toDate = date;
 		toDateText.SetText(toDate);
 	}

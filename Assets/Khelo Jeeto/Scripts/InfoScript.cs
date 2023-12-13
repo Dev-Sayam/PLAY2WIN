@@ -121,6 +121,7 @@ namespace KheloJeeto
 			Debug.Log("Called");
 			Destroy(fromCalenderUI);
 			calenderParentT.gameObject.SetActive(false);
+			if (string.IsNullOrWhiteSpace(date)) return;
 			fromDate = date;
 			fromDateText.SetText(fromDate);
 		}
@@ -129,6 +130,7 @@ namespace KheloJeeto
 			Debug.Log("Cal;ed");
 			Destroy(selectDateCalenderUI);
 			calenderSelectParentT.gameObject.SetActive(false);
+			if (string.IsNullOrWhiteSpace(date)) return;
 			selectedDate = date;
 			selectedDateText.SetText(date);
 		}
@@ -137,6 +139,7 @@ namespace KheloJeeto
 		{
 			Destroy(toCalenderUI);
 			calenderParentT.gameObject.SetActive(false);
+			if (string.IsNullOrWhiteSpace(date)) return;
 			toDate = date;
 			toDateText.SetText(toDate);
 		}
