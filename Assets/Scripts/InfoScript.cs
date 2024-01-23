@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using JetBrains.Annotations;
 using TMPro;
@@ -22,6 +23,7 @@ public class InfoScript : MonoBehaviour
 	[Header("API Details")]
 	[SerializeField] private string ticketDetailsLink;
 	[SerializeField] private string userPlayDetailsLink;
+	[SerializeField] private string betDetailsLink;
 	[SerializeField] private string reportDetailsLink;
 	[SerializeField] private string resultDetailsLink;
 
@@ -30,6 +32,12 @@ public class InfoScript : MonoBehaviour
 	[SerializeField]
 	TextMeshProUGUI ticketIdText, entryDateText, entryTimeText, drawDateText, drawTimeText,
 		betText, wonText, resultText;
+
+	[Header("BetDetailsForTicket")]
+	[SerializeField] private GameObject betDetailsPanel;
+	[SerializeField] private BetTicketDetailsData betDetailsDataPrefab;
+	[SerializeField] private Transform betDetailsContent;
+	private string betTicketID;
 
 	[Header("Report Refs")]
 	[SerializeField] TextMeshProUGUI userIdText;
@@ -80,6 +88,8 @@ public class InfoScript : MonoBehaviour
 		fromdatePickerEvent.RemoveObserver(DisableFromCalenderParentAndGetDate);
 		RemoveHistoryItems();
 		ResetUserPlayTicketDetails();
+		userPlayDetailsBG.SetActive(false);
+		betDetailsPanel.SetActive(false);
 	}
 
 	void RemoveHistoryItems()
@@ -167,6 +177,7 @@ public class InfoScript : MonoBehaviour
 
 	public void GetUserPlayDetailsForTicket(string ticketID)
 	{
+		betTicketID = ticketID;
 		userPlayDetailsBG.SetActive(true);
 		StartCoroutine(GetUserPlayDetailsForTicketCoroutine(ticketID));
 	}
@@ -202,6 +213,54 @@ public class InfoScript : MonoBehaviour
 			betText.text = userPlayDetailsForTicket.Bet;
 			wonText.text = userPlayDetailsForTicket.Won;
 			resultText.text = userPlayDetailsForTicket.Result;
+		}
+	}
+
+	public void GetBetDetailsForTicket()
+    {
+		betDetailsPanel.SetActive(true);
+		StartCoroutine(GetBetDetailsForTicketCoroutine(betTicketID));
+	}
+
+	IEnumerator GetBetDetailsForTicketCoroutine(string ticketID)
+	{
+		var sendTicketDetailsForBetJson = JsonUtility.ToJson(new SendTicketDetailsForBet(ticketID));
+		print(sendTicketDetailsForBetJson);
+		UnityWebRequest www = UnityWebRequest.Post(betDetailsLink, sendTicketDetailsForBetJson);
+		byte[] bodyRaw = Encoding.UTF8.GetBytes(sendTicketDetailsForBetJson);
+		www.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
+		www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+		www.SetRequestHeader("Content-Type", "application/json");
+		yield return www.SendWebRequest();
+		www.uploadHandler.Dispose();
+
+		if (www.isNetworkError || www.isHttpError)
+		{
+			Debug.Log(www.error);
+		}
+		else
+		{
+			print(www.downloadHandler.text);
+			var betDetailsForTicket = new BetDetailsForTicket();
+			betDetailsForTicket = JsonUtility.FromJson<BetDetailsForTicket>(www.downloadHandler.text);
+
+			for (int i = 0; i < betDetailsForTicket.Bets.Count; i++)
+			{
+				BetTicketDetailsData betTicketDetailsData = Instantiate(betDetailsDataPrefab, betDetailsContent).GetComponent<BetTicketDetailsData>();
+				//betTicketDetailsData.betType.text = bettypes[int.Parse(betDetailsForTicket.Bets[i].SDigit)];
+				betTicketDetailsData.digit.text = betDetailsForTicket.Bets[i].Digit;
+				betTicketDetailsData.play.text = betDetailsForTicket.Bets[i].Qty;
+				betTicketDetailsData.win.text = betDetailsForTicket.Bets[i].Win;
+			}
+		}
+	}
+
+	public void ClearBetDetailsForTicketContent()
+	{
+		BetTicketDetailsData[] betTicketDetailsDataList = betDetailsContent.GetComponentsInChildren<BetTicketDetailsData>();
+		for (int i = 0; i < betTicketDetailsDataList.Length; i++)
+		{
+			Destroy(betTicketDetailsDataList[i].gameObject);
 		}
 	}
 
@@ -331,6 +390,16 @@ public class SendTicketDetails
 }
 
 [System.Serializable]
+public class SendTicketDetailsForBet
+{
+	public string TicketID;
+    public SendTicketDetailsForBet(string ticketID)
+    {
+		TicketID = ticketID;
+	}
+}
+
+[System.Serializable]
 public class SendToViewTicketDetails
 {
 	public string UserID;
@@ -383,6 +452,35 @@ public class UserPlayDetailsForTicket
 	public string Bet;
 	public string Won;
 	public string Result;
+}
+
+[System.Serializable]
+public class BetDetailsForTicket
+{
+	public string Module;
+	public string TicketID;
+	public string UserID;
+	public string EntryDate;
+	public string EntryTime;
+	public string DrawDate;
+	public string DrawTime;
+	public string Points;
+	public string GameID;
+	public string Status;
+	public string Win;
+	public string ClaimDate;
+	public string retMsg;
+	public string retStatus;
+	public List<Bet> Bets;
+}
+
+[System.Serializable]
+public class Bet
+{
+	public string Digit;
+	public string Qty;
+	public string SDigit;
+	public string Win;
 }
 
 [System.Serializable]
