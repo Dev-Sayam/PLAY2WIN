@@ -7,11 +7,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3022614603219732400, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: ForwardPickOnly
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3022614603219732401, guid: f66219bc890044a2aa23d7af2a14cc08,
         type: 3}
       propertyPath: m_Pivot.x
@@ -172,47 +167,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 11400000, guid: 686eb0feb2aa69e4ca58f9d9455c1586,
-        type: 2}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Invoke
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DatePickerEvent, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 987852635067184786}
-    - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
-        type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: DayToggle, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 3022614604546355705, guid: f66219bc890044a2aa23d7af2a14cc08,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -281,19 +235,27 @@ PrefabInstance:
     - target: {fileID: 3022614604701999249, guid: f66219bc890044a2aa23d7af2a14cc08,
         type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f66219bc890044a2aa23d7af2a14cc08, type: 3}
---- !u!114 &987852635067184786 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3022614603618618578, guid: f66219bc890044a2aa23d7af2a14cc08,
-    type: 3}
-  m_PrefabInstance: {fileID: 2614327813163219520}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ff29a715a127804a8d03e7fa8351a9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

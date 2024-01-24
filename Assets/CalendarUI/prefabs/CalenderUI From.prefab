@@ -283,6 +283,37 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3592917014200542767, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 11400000, guid: 293ddc8902e356247a4b415dcd5c6714,
+        type: 2}
+    - target: {fileID: 3592917014200542767, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: CloseCalender
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6711283013988781197, guid: f66219bc890044a2aa23d7af2a14cc08,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f66219bc890044a2aa23d7af2a14cc08, type: 3}
 --- !u!114 &2395472671316503524 stripped

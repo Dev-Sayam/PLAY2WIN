@@ -22,4 +22,8 @@ public class DatePickerEvent : ScriptableObject
 		OnDatePickerEventInvoked -= callback;
 	}
 
+	public void CloseCalender()
+	{
+		OnDatePickerEventInvoked?.Invoke("");
+	}
 }
