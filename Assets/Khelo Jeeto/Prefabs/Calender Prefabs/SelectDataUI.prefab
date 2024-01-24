@@ -186,7 +186,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 11400000, guid: a9b6870f94ed32c479239c3c27e6cf30,
+      objectReference: {fileID: 11400000, guid: c4ee06b7dad0e24489271ff728e06b68,
         type: 2}
     - target: {fileID: 3022614604395065252, guid: f66219bc890044a2aa23d7af2a14cc08,
         type: 3}

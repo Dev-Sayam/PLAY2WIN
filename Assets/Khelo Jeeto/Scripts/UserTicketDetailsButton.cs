@@ -11,9 +11,11 @@ namespace KheloJeeto
         [SerializeField] private Image betHistoryCardSuits;
         [SerializeField] private Sprite jokerSprite, queenSprite, kingSprite;
         [SerializeField] private Sprite heartSprite, spadeSprite, diamondSprite, clubSprite;
+        public string ticketID;
 
         public void SetTicketDetails(string ticketId, string drawTime, string play, string win, string result)
         {
+            ticketID = ticketId;
             ticketIdText.text = ticketId;
             drawTimeText.text = drawTime;
             playText.text = play;

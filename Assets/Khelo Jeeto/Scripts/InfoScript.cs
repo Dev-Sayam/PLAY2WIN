@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using SimpleJSON;
 using TMPro;
@@ -28,12 +29,15 @@ namespace KheloJeeto
 		[SerializeField] private string userPlayDetailsLink;
 		[SerializeField] private string reportDetailsLink;
 		[SerializeField] private string resultDetailsLink;
+		[SerializeField] private string ticketUserDetailsLink;
 
 		[Header("UserPlayDetailsForTicket Refs")]
 		[SerializeField] GameObject userPlayDetailsBG;
 		[SerializeField]
 		TextMeshProUGUI ticketIdText, entryDateText, entryTimeText, drawDateText, drawTimeText,
 			betText, wonText, resultText;
+		[SerializeField] private TicketDetailsData ticketDetailsData;
+		[SerializeField] private List<TicketDetailsData> ticketDetails;
 
 		[Header("Report Refs")]
 		[SerializeField] TextMeshProUGUI userIdText;
@@ -46,6 +50,7 @@ namespace KheloJeeto
 		[Header("Result Refs")]
 		[SerializeField] GameObject eachResultItemPrefab;
 		[SerializeField] Transform resultContent;
+		[SerializeField] Transform ticketContent;
 		[SerializeField] private Toggle reportToggle, resultToggle, historyToggle, rulesToggle;
 
 		GameObject fromCalenderUI, toCalenderUI, selectDateCalenderUI;
@@ -112,9 +117,14 @@ namespace KheloJeeto
 
 		public void ResetUserPlayTicketDetails()
 		{
-			ticketIdText.text = entryDateText.text = entryTimeText.text = drawDateText.text =
-				drawTimeText.text = betText.text = wonText.text = resultText.text = "";
-		}
+            /*	ticketIdText.text = entryDateText.text = entryTimeText.text = drawDateText.text =
+                    drawTimeText.text = betText.text = wonText.text = resultText.text = "";*/
+            foreach (TicketDetailsData item in ticketDetails)
+            {
+                Destroy(item.gameObject);
+            }
+            ticketDetails.Clear();
+        }
 
 		void DisableFromCalenderParentAndGetDate(string date)
 		{
@@ -210,7 +220,7 @@ namespace KheloJeeto
 			var sendTicketDetails = new SendTicketDetails(mainData.receivedLoginData.UserID, ticketID);
 			var sendTicketDetailsJson = JsonUtility.ToJson(sendTicketDetails);
 			print(sendTicketDetailsJson);
-			UnityWebRequest www = UnityWebRequest.Post(userPlayDetailsLink, sendTicketDetailsJson);
+			UnityWebRequest www = UnityWebRequest.Post(ticketUserDetailsLink, sendTicketDetailsJson);
 			byte[] bodyRaw = Encoding.UTF8.GetBytes(sendTicketDetailsJson);
 			www.uploadHandler = (UploadHandler)new UploadHandlerRaw(bodyRaw);
 			www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -227,17 +237,24 @@ namespace KheloJeeto
 				print(www.downloadHandler.text);
 				var userPlayDetailsForTicket = new UserPlayDetailsForTicket();
 				userPlayDetailsForTicket = JsonUtility.FromJson<UserPlayDetailsForTicket>(www.downloadHandler.text);
-
-				ticketIdText.text = userPlayDetailsForTicket.TicketID;
+				Debug.Log(JsonUtility.ToJson(userPlayDetailsForTicket));
+				/*ticketIdText.text = userPlayDetailsForTicket.TicketID;
 				entryDateText.text = userPlayDetailsForTicket.EntryDate;
 				entryTimeText.text = userPlayDetailsForTicket.EntryTime;
 				drawDateText.text = userPlayDetailsForTicket.DrawDate;
 				drawTimeText.text = userPlayDetailsForTicket.DrawTime;
-				betText.text = userPlayDetailsForTicket.Bet;
-				wonText.text = userPlayDetailsForTicket.Won;
-				var resultArray = userPlayDetailsForTicket.Result.Split('-');
-				string resultText_ = JeetoJokerManager.Instance.GetCardRankAndSuitAccordingToNumber(resultArray[0]).ToString();
-				resultText.text = resultText_ +" - "+ resultArray[1]+"X";
+                //betText.text = userPlayDetailsForTicket.Bet;*/
+				ResetUserPlayTicketDetails();
+                foreach (Bet bet in userPlayDetailsForTicket.Bets)
+				{
+					TicketDetailsData ticket = Instantiate(ticketDetailsData, ticketContent);
+					ticket.SetDetailsOFBetData(bet);
+					ticketDetails.Add(ticket);
+
+				}
+				Debug.Log(userPlayDetailsForTicket.Bets.Count);
+				//wonText.text = userPlayDetailsForTicket.Win;				
+				//resultText.text = userPlayDetailsForTicket.Status;
 			}
 		}
 
@@ -271,17 +288,21 @@ namespace KheloJeeto
 				print(www.downloadHandler.text);
 				var receivedDateWiseResultsDetails = new ReceivedDateWiseResultDetails();
 				receivedDateWiseResultsDetails = JsonUtility.FromJson<ReceivedDateWiseResultDetails>(www.downloadHandler.text);
-
-				print(receivedDateWiseResultsDetails.Draws.Length);
+				//if(receivedDateWiseResultsDetails.Draws)
+				print(receivedDateWiseResultsDetails.Draws== null);
+				
 				foreach (Transform item in resultContent)
 				{
 					Destroy(item.gameObject);
 				}
-				foreach (var item in receivedDateWiseResultsDetails.Draws)
+				if (receivedDateWiseResultsDetails.Draws != null)
 				{
-					var eachResultItemObject = GameObject.Instantiate(eachResultItemPrefab, resultContent);
-					var eachResultItem = eachResultItemObject.GetComponent<EachResultItem>();
-					eachResultItem.SetResultItems(item.GameID, item.DrawTime, item.Result, item.XF);
+					foreach (var item in receivedDateWiseResultsDetails.Draws)
+					{
+						var eachResultItemObject = Instantiate(eachResultItemPrefab, resultContent);
+						var eachResultItem = eachResultItemObject.GetComponent<EachResultItem>();
+						eachResultItem.SetResultItems(item.GameID, item.DrawTime, item.Result, item.XF);
+					}
 				}
 			}
 
@@ -431,9 +452,18 @@ namespace KheloJeeto
 		public string EntryTime;
 		public string DrawDate;
 		public string DrawTime;
-		public string Bet;
-		public string Won;
-		public string Result;
+		public List<Bet> Bets;
+		public string Win;
+		public string Status;
+	}
+
+	[System.Serializable]
+	public class Bet
+	{
+		public string Digit;
+		public string Qty;
+		public string SDigit;
+		public string Win;
 	}
 
 	[System.Serializable]
