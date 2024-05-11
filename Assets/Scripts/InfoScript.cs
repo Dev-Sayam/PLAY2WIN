@@ -288,12 +288,16 @@ public class InfoScript : MonoBehaviour
 		}
 		else
 		{
-			//print(www.downloadHandler.text);
+            for (int i = 0; i < resultContent.childCount; i++)
+            {
+				Destroy(resultContent.GetChild(i).gameObject);
+            }
+			print(www.downloadHandler.text);
 			var receivedDateWiseResultsDetails = new ReceivedDateWiseResultDetails();
 			receivedDateWiseResultsDetails = JsonUtility.FromJson<ReceivedDateWiseResultDetails>(www.downloadHandler.text);
 
 			print(receivedDateWiseResultsDetails.Draws.Length);
-
+			yield return null;
 			foreach (var item in receivedDateWiseResultsDetails.Draws)
 			{
 				var eachResultItemObject = GameObject.Instantiate(eachResultItemPrefab, resultContent);
