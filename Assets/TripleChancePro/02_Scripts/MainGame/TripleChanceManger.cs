@@ -376,6 +376,7 @@ namespace TripleChanceProTimer
             }, (OnErrorData) =>
             {
                 Debug.Log(OnErrorData.error);
+                OnyesBtnClick();
             });
         }
         public void OnInfoButtonTap()
