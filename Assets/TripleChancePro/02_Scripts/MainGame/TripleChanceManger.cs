@@ -433,7 +433,9 @@ namespace TripleChanceProTimer
             {
                 allWinNumberText[i].text = retrievesLast_N_Number_Of_Results_Response_D.Draws[i].Result;
                 string xFVal = retrievesLast_N_Number_Of_Results_Response_D.Draws[i].XF;
-                allWinMultiplierText[i].text = xFVal == "N" ? xFVal : xFVal.ToLower();
+                if(xFVal == "N" || xFVal.ToLower() == "1x")
+                    xFVal = "";
+                allWinMultiplierText[i].text = xFVal.ToLower();
             }
             wheelController.winShowText.text = retrievesLast_N_Number_Of_Results_Response_D.Draws[0].Result;
             if (ShowWinInSlideBar && retrievesLast_N_Number_Of_Results_Response_D != null && retrievesLast_N_Number_Of_Results_Response_D.Draws.Count > 0)
