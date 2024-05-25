@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
+using TripleChanceProTimer;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -27,7 +28,7 @@ namespace KheloJeeto
 		[SerializeField] public UnityEvent OnSpinEndEvent;
 		[SerializeField] private UnityEvent OnWin;
 		[SerializeField] private Transform wheelCircle;
-		[SerializeField] private Transform secomdWheelCircle;
+		[SerializeField] private Transform secondWheelCircle;
 		[SerializeField] private AudioClip audioClip;
 		[SerializeField] private Animator circleAnim;
 		[SerializeField] private GameObject winPopup;
@@ -63,15 +64,17 @@ namespace KheloJeeto
 			halfPieceAngle = pieceAngle / 2f;
 			halfPieceAngleWithPaddings = halfPieceAngle - (halfPieceAngle / 4f);
 			//SetupResults(result, 1, false);
+			
 		}
-
+		public int basemultiplier;
 		public void SetupResults(int result, int multiplier, bool win, Action winCallback = null, Action looseCallback = null)
 		{
 			firstWheelItemNumber = prize.FindIndex(a => a == result);
 			//int secondWheelNumber = result % 10;
 			//secondWheelItemNumber = prize.FindIndex(a => a == secondWheelNumber);
-			print("Item Number : " + firstWheelItemNumber);
+			print("Item Number : " + firstWheelItemNumber);		
 
+            Debug.LogError(multiplier);
 			currentNumber = result;
 			currentMultiplier = multiplier;
 			this.win = win;
@@ -80,9 +83,10 @@ namespace KheloJeeto
 			//Spin();
 		}
 
+		[ContextMenu("Spin")]
 		public void Spin()
 		{
-			if (!_isSpinning)
+			/*if (!_isSpinning)
 			{
 				_isSpinning = true;
 
@@ -94,25 +98,31 @@ namespace KheloJeeto
 				float firstAngle = -(pieceAngle * firstIndex);
 				float secondAngle = -(pieceAngle * secondIndex);
 
-				float rightOffset = (firstAngle - /*halfPieceAngleWithPaddings*/0) % 360;
-				float leftOffset = (firstAngle + /*halfPieceAngleWithPaddings*/0) % 360;
+				float rightOffset = (firstAngle - /*halfPieceAngleWithPaddings0) % 360;
+				float leftOffset = (firstAngle + /*halfPieceAngleWithPaddings0) % 360;
 
 				float randomAngle = UnityEngine.Random.Range(leftOffset, rightOffset);
 
-				Vector3 firstTargetRotation = Vector3.back * (randomAngle + 2 * 360 * spinDuration);
-
+				Vector3 firstTargetRotation = new Vector3(0.0f, 0.0f, -5700.0f);// Vector3.back * (randomAngle + 2 * 360 * spinDuration);
+				Debug.LogError(firstTargetRotation);
 				//float prevAngle = wheelCircle.eulerAngles.z + halfPieceAngle ;
 				float prevAngle, currentAngle;
 				prevAngle = currentAngle = wheelCircle.eulerAngles.z;
 
 				bool isIndicatorOnTheLine = false;
-				secomdWheelCircle.DORotate(firstTargetRotation, spinDuration, RotateMode.Fast).OnStart(() => SoundManager.instance.PlaySpinAudio(audioClip))
-					.OnComplete(()=>SoundManager.instance.StopSpinAudio());
-				circleAnim.transform.gameObject.SetActive(true);
+				/*  secondWheelCircle.DORotate(firstTargetRotation, spinDuration, RotateMode.Fast).SetEase(Ease.OutQuad).OnStart(() => SoundManager.instance.PlaySpinAudio(audioClip))
+                      .OnComplete(()=>SoundManager.instance.StopSpinAudio());
+				StartCoroutine(SpinCoroutine(firstTargetRotation.z));
+
+
+
+
+
+
+               circleAnim.transform.gameObject.SetActive(true);
 				circleAnim.Rebind();
-				wheelCircle
-				.DORotate(firstTargetRotation, spinDuration, RotateMode.Fast)
-				.SetEase(Ease.InOutQuart)
+				wheelCircle.DORotate(firstTargetRotation, spinDuration, RotateMode.Fast)
+				.SetEase(Ease.Linear)
 
 				.OnUpdate(() =>
 				{
@@ -153,9 +163,37 @@ namespace KheloJeeto
 					StartCoroutine(SendOnSpinCompleteEvent());
 				});
 
-			}
+			}*/
 		}
-		public void StopPlayingAnimation()
+        public AnimationCurve spinCurve; // Animation curve to control the speed
+       // private void StartSpin()
+        //{
+         //   StartCoroutine(SpinCoroutine());
+       // }
+
+        private IEnumerator SpinCoroutine(float value)
+        {
+           
+            float totalDegrees =  value;
+            float elapsedTime = 0f;
+
+			SoundManager.instance.PlaySpinAudio(audioClip);
+
+            while (elapsedTime < spinDuration)
+            {
+                elapsedTime += Time.deltaTime*.25f;
+                float t = elapsedTime / spinDuration;
+                float currentDegrees =  spinCurve.Evaluate(t);
+				secondWheelCircle.localEulerAngles = Vector3.forward * Mathf.Lerp(0, 360*30, currentDegrees) * 1;
+                
+                yield return null;
+            }
+            _isSpinning = false;
+            secondWheelCircle.localRotation = Quaternion.Euler(0, 0, -totalDegrees);
+            SoundManager.instance.StopSpinAudio();
+        }
+
+        public void StopPlayingAnimation()
 		{
 			winBoxCardObject.SetActive(false);
 			winCardObject[firstWheelItemNumber].SetActive(false);

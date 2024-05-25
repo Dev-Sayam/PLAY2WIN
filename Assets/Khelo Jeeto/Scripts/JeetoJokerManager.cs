@@ -82,6 +82,8 @@ namespace KheloJeeto
 		public UnityEvent OnWin;
 		[SerializeField] private GameObject backPopUp;
 
+        [SerializeField] private WheelController wheelController;
+        public 
 		void Awake()
 		{
 			if (Instance == null)
@@ -110,12 +112,14 @@ namespace KheloJeeto
 		void Start()
 		{
 			//ShowResults();
+			
 			balance = int.Parse(mainData.receivedLoginData.Balance);
 			originalBalance = balance;
 			ShowBalance();
 			GetLastFewDrawDetailsJeetoJoker();
 			SendPendingDrawDetailsJeetoJoker();
-		}
+
+        }
 
 		public void SelectCoin(int amt)
 		{
@@ -459,9 +463,27 @@ namespace KheloJeeto
 				var multiplier = int.Parse(mainData.currentDrawDetails.Draws[0].XF[0].ToString());
 
 				AppearWheelBoard();
-				bool win = int.Parse(mainData.currentDrawDetails.Draws[0].TotWin) > 0;
+				if (string.IsNullOrEmpty((mainData.currentDrawDetails.Draws[0].TotWin)))
+					mainData.currentDrawDetails.Draws[0].TotWin = "0";
 
-				SpinWheel.Instance.SetupResults(gameResult, multiplier, win, () =>
+                bool win = int.Parse(mainData.currentDrawDetails.Draws[0].TotWin) > 0;
+				wheelController.PlaceBet(gameResult, multiplier, win, () =>
+                {
+                    OnWin?.Invoke();
+                    balance = originalBalance = int.Parse(mainData.currentDrawDetails.Balance);
+                    winText.text = spinPanelWinText.text = spinPanelPopupWinText.text = int.Parse(mainData.currentDrawDetails.Draws[0].TotWin).ToString();
+                    //	ShowResults();
+                    //OnWin?.Invoke();
+                    //balance = originalBalance = int.Parse(mainData.currentDrawDetails.Balance);
+                    //winText.text = winPopupText.text = int.Parse(mainData.currentDrawDetails.Draws[0].TotWin).ToString();
+                },
+                () =>
+                {
+                    winText.text = spinPanelWinText.text = spinPanelPopupWinText.text = int.Parse(mainData.currentDrawDetails.Draws[0].TotWin).ToString();
+                }
+                );
+
+              /*  SpinWheel.Instance.SetupResults(gameResult, multiplier, win, () =>
 				{
 					OnWin?.Invoke();
 					balance = originalBalance = int.Parse(mainData.currentDrawDetails.Balance);
@@ -475,7 +497,7 @@ namespace KheloJeeto
 				{
 					winText.text = spinPanelWinText.text = spinPanelPopupWinText.text = int.Parse(mainData.currentDrawDetails.Draws[0].TotWin).ToString();
 				}
-				);
+				);*/
 			});
 		}
 
@@ -541,10 +563,14 @@ namespace KheloJeeto
 			//duplicatedBoard.transform.localScale = Vector3.one * 1.8f;
 			AppearWheelBoard();
 		}
+	
 
+		[ContextMenu("please show")]
 		private void AppearWheelBoard()
 		{
-			boardWheelPanel.transform.DOLocalMoveX(0f, 1.25f).SetDelay(2).OnComplete(() => SpinWheel.Instance.Spin());
+			Debug.LogError("Calling for show");
+			boardWheelPanel.transform.DOLocalMoveX(0f, 1.25f).SetDelay(2).OnComplete(() => wheelController.StartRotation());
+			
 		}
 
 		public void DisappearWheelBoard()
