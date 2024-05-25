@@ -28,6 +28,10 @@ namespace TripleChanceProTimer
             circleAnim.transform.gameObject.SetActive(true);
             circleAnim.Rebind();
             //Invoke(nameof(ShowMultiPlierImage), 2.8f);
+            for (int i = 0; i < multiplierObj.Length; i++)
+            {
+                multiplierObj[i].SetActive(false);
+            }
             WinImgHide();
             bet_number = betNumber;
             tempBetNumber = bet_number;
@@ -94,7 +98,7 @@ namespace TripleChanceProTimer
         {
             if (id > 1)
             {
-            multiplierObj[id].SetActive(active);
+                multiplierObj[id].SetActive(active);
             }
         }
     }

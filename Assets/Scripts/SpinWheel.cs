@@ -106,7 +106,15 @@ public class SpinWheel : MonoBehaviour
 				_isSpinning = false;
 
 				numberText.text = currentNumber.ToString();
-				xFactor.text = currentMultiplier.ToString() + "X";
+				if(currentMultiplier > 1)
+                {
+					xFactor.gameObject.SetActive(true);
+					xFactor.text = currentMultiplier.ToString() + "X";
+				}
+                else
+                {
+					xFactor.gameObject.SetActive(false);
+				}
 
 				if (win)
 				{

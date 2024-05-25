@@ -82,7 +82,7 @@ namespace TripleChanceProTimer
         }
         public void ClearBet(bool setBalanceAmount = true)
         {
-            Debug.LogError("call");
+            allPlacedBets.Clear();
             select_tab.SetActive(false);
             TripleChanceManger.instence.panelSlide.selectedSliderBarId = text1.text.Length - 1;///////////////////////////////////////////////////
             TripleChanceManger.instence.panelSlide.UpdateTotalBetText(-int.Parse(bet_text.text), setBalanceAmount);
@@ -107,6 +107,7 @@ namespace TripleChanceProTimer
         public void SetAllPlacedBetsForRebetUse()
         {
             allPlacedBetsForRebetUse = new List<int>(allPlacedBets);
+            allPlacedBets.Clear();
         }
     }
 }
