@@ -37,6 +37,7 @@ namespace KheloJeeto
 		[SerializeField] private Sprite heartSprite, spadeSprite, diamondSprite, clubSprite;
 		[SerializeField] private Image[] betHistoryCardRanks;
 		[SerializeField] private Image[] betHistoryCardSuits;
+		[SerializeField] private Text[] betHistoryMultiplier;
 		[SerializeField] private EachCard[] eachCards;
 		[SerializeField] private Button clearButton, doubleButton, repeatButton;
 		[SerializeField] private Button allHeartsButton, allSpadesButton, allDiamondsButton, allClubsButton;
@@ -199,6 +200,15 @@ namespace KheloJeeto
 					if (i == 0)
 					{
 						timer.SetLastDrawTime(mainData.lastFewDrawDetails.Draws[i].DrawTime);
+					}
+
+					string xFVal = mainData.lastFewDrawDetails.Draws[i].XF;
+					if (xFVal == "N" || xFVal.ToLower() == "1x")
+						betHistoryMultiplier[i].transform.parent.gameObject.SetActive(false);
+					else
+					{
+						betHistoryMultiplier[i].transform.parent.gameObject.SetActive(true);
+						betHistoryMultiplier[i].text = xFVal.ToLower();
 					}
 
 					string cardRankAndSuit = GetCardRankAndSuitAccordingToNumber(mainData.lastFewDrawDetails.Draws[i].Result);
