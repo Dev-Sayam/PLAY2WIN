@@ -78,7 +78,8 @@ namespace KheloJeeto
             circleAnim.transform.gameObject.SetActive(false);
 
             numberText.text = currentNumber.ToString();
-            xFactor.text = currentMultiplier.ToString() + "X";
+            if(currentMultiplier > 1)
+                xFactor.text = currentMultiplier.ToString() + "X";
 
             if (win)
             {

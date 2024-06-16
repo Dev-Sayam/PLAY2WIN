@@ -10,6 +10,7 @@ namespace KheloJeeto
         private RectTransform this_rect;
         private WheelController wheel_controller;
         private bool do_rotate;
+        [SerializeField] private bool rotate_reverse;
         [SerializeField] private bool show_win, show_Multiplier;
         float tmp_counter, tmp_fraction_value;
         int dir;
@@ -22,8 +23,7 @@ namespace KheloJeeto
         {
             this_rect = GetComponent<RectTransform>();
             wheel_controller = GetComponentInParent<WheelController>();
-           
-                dir = 1;
+            dir = 1;
             
             total_rotation_value = 360 * wheel_controller.rotation_count;
         }
@@ -72,8 +72,6 @@ namespace KheloJeeto
             SoundManager.instance.StopSpinAudio();
             Debug.Log(this.gameObject.name + "  Rotation complete");
 
-            
-
             wheel_controller.WinImgShow();
            // TripleChanceManger.instence.InfoButtonEnableDisable(true);
         }
@@ -83,12 +81,14 @@ namespace KheloJeeto
             fix_rotation_angle = value;
             if (show_Multiplier)
                 SoundManager.instance.PlaySpinAudio(wheel_controller.audioClip);
-            spinWheelClip.Play("SpinWheelAnimation");
+            if (rotate_reverse)
+                spinWheelClip.Play("SpinWheelAnimationReverse");
+            else
+                spinWheelClip.Play("SpinWheelAnimation");
             Invoke(nameof(Set_Fixed_Rotation), WHEEL_ROTATION_SET_DELAY);
         }
         private void Set_Fixed_Rotation()
         {
-            Debug.LogError("Called for setting the value");
             holder_rect.localEulerAngles = Vector3.forward * fix_rotation_angle;
         }
         public void Set_Fixed_Rotation_ForFirstTime(int fix_rotation_angle)
