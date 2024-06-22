@@ -129,11 +129,6 @@ namespace KheloJeeto
 		}
 		private void Update()
 		{
-
-			// Make sure user is on Android platform
-			//  if (Application.platform == RuntimePlatform.Android)
-			//  {
-			// Check if Back was pressed this frame
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				if (!backPopUp.activeInHierarchy)
@@ -141,8 +136,6 @@ namespace KheloJeeto
 					backPopUp.SetActive(true);
 				}
 			}
-			//  }
-
 		}
 
 		public void ChangeAudioEnableDisable()

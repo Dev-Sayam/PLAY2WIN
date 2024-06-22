@@ -103,14 +103,9 @@ public class GameManager : MonoBehaviour
 	}
 	void Update()
 	{
-		// Make sure user is on Android platform
-		if (Application.platform == RuntimePlatform.Android)
+		if (Input.GetKeyDown(KeyCode.Escape) && !backPopUp.activeInHierarchy)
 		{
-			// Check if Back was pressed this frame
-			if (Input.GetKeyDown(KeyCode.Escape) && !backPopUp.activeInHierarchy)
-			{
-				backPopUp.SetActive(true);
-			}
+			backPopUp.SetActive(true);
 		}
 	}
 	private void SendPendingDrawDetails()

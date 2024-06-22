@@ -29,9 +29,9 @@ namespace KheloJeeto
         }
 
         // Update is called once per frame
-        void Update()
+        /*void Update()
         {
-           /* if (do_rotate)
+            if (do_rotate)
             {
                 tmp_counter += Time.deltaTime * rotation_speed;
                 tmp_fraction_value = wheel_controller.wheel_rotate_curve.Evaluate(tmp_counter);
@@ -53,14 +53,15 @@ namespace KheloJeeto
                     }
                     
                 }
-            }*/
-        }
+            }
+    }*/
 
         public void DoCompleteAnimationEvent()
         {
             if (show_win)
             {
-                OnRotateComplete();
+                Invoke(nameof(OnRotateComplete), 1f);
+                //OnRotateComplete();
             }
             if (show_Multiplier)
             {
