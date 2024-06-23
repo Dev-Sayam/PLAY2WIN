@@ -60,6 +60,7 @@ namespace KheloJeeto
         {
             if (show_win)
             {
+                SoundManager.instance.StopSpinAudio();
                 Invoke(nameof(OnRotateComplete), 1f);
                 //OnRotateComplete();
             }
@@ -70,7 +71,6 @@ namespace KheloJeeto
         }
         private void OnRotateComplete()
         {
-            SoundManager.instance.StopSpinAudio();
             Debug.Log(this.gameObject.name + "  Rotation complete");
 
             wheel_controller.WinImgShow();
