@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 namespace TripleChanceProTimer
 {
@@ -9,13 +10,18 @@ namespace TripleChanceProTimer
         private RectTransform this_rect;
         private WheelController wheel_controller;
         private bool do_rotate;
-        [SerializeField] private bool rotate_reverse;
+        [SerializeField]private bool rotate_reverse;
         [SerializeField] private bool show_win,show_Multiplier;
         float tmp_counter, tmp_fraction_value;
         int dir;
         float total_rotation_value;
         private int fix_rotation_angle;
         [SerializeField] [Range(0, 1)] private float rotation_speed = 1;
+        [SerializeField] private GameObject winImg;
+        [SerializeField] private TextMeshProUGUI winNumText;
+        [SerializeField] private RectTransform currentWinNum, lastWinNum;
+        [SerializeField] private int lastWinShiftVal = 0;
+
         private void Awake()
         {
             this_rect = GetComponent<RectTransform>();
@@ -43,6 +49,8 @@ namespace TripleChanceProTimer
                 {
                     do_rotate = false;
                     tmp_counter = 0;
+                    winImg.SetActive(true);
+                    lastWinNum.anchoredPosition = Vector2.up * lastWinShiftVal;
                     if (show_win)
                     {
                         OnRotateComplete();
@@ -64,8 +72,10 @@ namespace TripleChanceProTimer
             wheel_controller.WinImgShow();
             TripleChanceManger.instence.InfoButtonEnableDisable(true);
         }
-        public void StartRotation(int value)
+        public void StartRotation(int value, int resultNumber)
         {
+            currentWinNum.anchoredPosition = Vector2.zero;
+            winNumText.text = resultNumber.ToString();
             do_rotate = true;
             fix_rotation_angle = value;
             Invoke(nameof(Set_Fixed_Rotation), Constant.WHEEL_ROTATION_SET_DELAY);
@@ -77,6 +87,11 @@ namespace TripleChanceProTimer
         public void Set_Fixed_Rotation_ForFirstTime(int fix_rotation_angle)
         {
             holder_rect.localEulerAngles = Vector3.forward * fix_rotation_angle;
+        }
+
+        public void HideWinImage()
+        {
+            winImg.SetActive(false);
         }
     }
 }

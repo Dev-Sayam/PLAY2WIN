@@ -37,7 +37,8 @@ namespace TripleChanceProTimer
             tempBetNumber = bet_number;
             for (int i = 0; i < all_wheel.Count; i++)
             {
-                all_wheel[i].StartRotation(indes_Wise_Angle[bet_number % 10]);
+                all_wheel[i].HideWinImage();
+                all_wheel[i].StartRotation(indes_Wise_Angle[bet_number % 10], (bet_number % 10));
                 bet_number /= 10;
             }
         }
@@ -53,8 +54,8 @@ namespace TripleChanceProTimer
         }
         public void WinImgShow()
         {
-            win_obj.SetActive(true);
-            winAnim.Play("WinImgWin");
+            //win_obj.SetActive(true);
+            //winAnim.Play("WinImgWin");
             // StartCoroutine(DelayShow());
 
           //  MultilierObjShow(multiplierObjId, false);
@@ -74,7 +75,7 @@ namespace TripleChanceProTimer
         }
         private void WinImgHide()
         {
-            win_obj.SetActive(false);
+            //win_obj.SetActive(false);
             winShowText.gameObject.SetActive(false);
             triple_ChanceProImage.SetActive(false);
         }

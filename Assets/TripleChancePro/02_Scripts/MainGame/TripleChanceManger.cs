@@ -65,16 +65,11 @@ namespace TripleChanceProTimer
         }
         void Update()
         {
-            // Make sure user is on Android platform
-            if (Application.platform == RuntimePlatform.Android)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                // Check if Back was pressed this frame
-                if (Input.GetKeyDown(KeyCode.Escape))
+                if (!backPopUp.activeInHierarchy)
                 {
-                    if (!backPopUp.activeInHierarchy)
-                    {
-                        backPopUp.SetActive(true);
-                    }
+                    backPopUp.SetActive(true);
                 }
             }
         }
@@ -333,7 +328,6 @@ namespace TripleChanceProTimer
         }
         private void GetResults()
         {
-            SoundManager.instance.PlaySfx(4);
             RetriveResults((OnSuccessData) =>
             {
                 retrievesLast_N_Number_Of_Results_Response_D = OnSuccessData;
@@ -350,6 +344,7 @@ namespace TripleChanceProTimer
                 {
                     wheelController.multiplierObjId = int.Parse(retrievesLast_N_Number_Of_Results_Response_D.Draws[0].XF.TrimEnd('X'));
                 }
+                SoundManager.instance.PlaySfx(4);
                 wheelController.PlaceBet(int.Parse(retrievesLast_N_Number_Of_Results_Response_D.Draws[0].Result));
             }, "D");
         }
