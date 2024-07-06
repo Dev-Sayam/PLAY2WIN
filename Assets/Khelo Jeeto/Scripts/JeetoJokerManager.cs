@@ -37,7 +37,8 @@ namespace KheloJeeto
 		[SerializeField] private Sprite heartSprite, spadeSprite, diamondSprite, clubSprite;
 		[SerializeField] private Image[] betHistoryCardRanks;
 		[SerializeField] private Image[] betHistoryCardSuits;
-		[SerializeField] private Text[] betHistoryMultiplier;
+		[SerializeField] private TextMeshProUGUI[] betHistoryMultiplier;
+		[SerializeField] private TextMeshProUGUI[] betHistoryTime;
 		[SerializeField] private EachCard[] eachCards;
 		[SerializeField] private Button clearButton, doubleButton, repeatButton;
 		[SerializeField] private Button allHeartsButton, allSpadesButton, allDiamondsButton, allClubsButton;
@@ -169,8 +170,6 @@ namespace KheloJeeto
 
 		void ProcessTimer()
 		{
-			
-
             var timeOfDay = Convert.ToDateTime(mainData.pendingDrawDetails.Now).TimeOfDay;
 			var drawTime = Convert.ToDateTime(mainData.pendingDrawDetails.Draws[0].DrawTime).TimeOfDay;
 			Debug.Log(drawTime);
@@ -197,10 +196,10 @@ namespace KheloJeeto
 
 					string xFVal = mainData.lastFewDrawDetails.Draws[i].XF;
 					if (xFVal == "N" || xFVal.ToLower() == "1x")
-						betHistoryMultiplier[i].transform.parent.gameObject.SetActive(false);
+						betHistoryMultiplier[i].gameObject.SetActive(false);
 					else
 					{
-						betHistoryMultiplier[i].transform.parent.gameObject.SetActive(true);
+						betHistoryMultiplier[i].gameObject.SetActive(true);
 						betHistoryMultiplier[i].text = xFVal.ToLower();
 					}
 
@@ -245,6 +244,8 @@ namespace KheloJeeto
 						default:
 							break;
 					}
+
+					betHistoryTime[i].text = mainData.lastFewDrawDetails.Draws[i].DrawTime;
 				}
 
 			});

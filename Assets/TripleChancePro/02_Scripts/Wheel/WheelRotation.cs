@@ -53,7 +53,7 @@ namespace TripleChanceProTimer
                     lastWinNum.anchoredPosition = Vector2.up * lastWinShiftVal;
                     if (show_win)
                     {
-                        OnRotateComplete();
+                        Invoke(nameof(OnRotateComplete), 1f);
                     }
                     if (show_Multiplier)
                     {

@@ -26,6 +26,7 @@ public class UserAccessController : MonoBehaviour
 
 	void Start()
 	{
+		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		if (PlayerPrefs.HasKey("userId") && PlayerPrefs.HasKey("password"))
 		{
 			loginUserIdField.text = PlayerPrefs.GetString("userId");
