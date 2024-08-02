@@ -71,8 +71,6 @@ namespace KheloJeeto
 
             winCardObject[bet_number].SetActive(true);
             winAnimatorCard[bet_number].Play("winCardAnim");
-            WinPopUp.SetActive(true);
-            WinPopUp.transform.DOScale(1, 0.5f);
             winBoxCardObject.SetActive(true);
             winBoxCard.Play("winBoxAnim");
             circleAnim.transform.gameObject.SetActive(false);
@@ -83,6 +81,8 @@ namespace KheloJeeto
 
             if (win)
             {
+                WinPopUp.SetActive(true);
+                WinPopUp.transform.DOScale(1, 0.5f);
                 winCallback?.Invoke();
             }
             else

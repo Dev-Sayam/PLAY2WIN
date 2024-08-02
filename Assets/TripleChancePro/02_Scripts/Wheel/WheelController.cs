@@ -83,7 +83,7 @@ namespace TripleChanceProTimer
         {
             WinPopUp.SetActive(true);
             youwinText.gameObject.SetActive(true);
-            yield return new WaitForSecondsRealtime(1.5f);
+            yield return new WaitForSecondsRealtime(3f);
             youwinText.gameObject.SetActive(false);
             WinPopUp.SetActive(false);
             winShowText.gameObject.SetActive(true);
