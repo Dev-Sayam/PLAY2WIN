@@ -79,32 +79,34 @@ public class UserAccessController : MonoBehaviour
 			Debug.Log(www.downloadHandler.text);
 			mainData.receivedLoginData = JsonUtility.FromJson<ReceivedLoginData>(www.downloadHandler.text);
 			www.downloadHandler.Dispose();
-            switch (mainData.receivedLoginData.retMsg)
-            {
-                case "Success":
-                    PlayerPrefs.SetString(loginUserIdField.text, uniqueId);
-                    SceneManager.LoadScene(1);
-                    break;
+            PlayerPrefs.SetString(loginUserIdField.text, uniqueId);
+            //SceneManager.LoadScene(1);
+             switch(mainData.receivedLoginData.retMsg)
+             {
+                 case "Success":
+                     PlayerPrefs.SetString(loginUserIdField.text, uniqueId);
+                     SceneManager.LoadScene(1);
+                     break;
 
-                case "Admin Approval Required":
-                case "Contact Admin":
-                    PlayerPrefs.SetString(loginUserIdField.text, uniqueId);
-                    alert_ContactOffice.SetActive(true);
-                    break;
+                 case "Admin Approval Required":
+                 case "Contact Admin":
+                     PlayerPrefs.SetString(loginUserIdField.text, uniqueId);
+                     alert_ContactOffice.SetActive(true);
+                     break;
 
-                case "Security Failed":
-					alert_ContactOffice.SetActive(true);
-					break;
-                case "Password Mismatch":
-                    errorText.text = "Invalid Credentials";
-                    break;
+                 case "Security Failed":
+                     alert_ContactOffice.SetActive(true);
+                     break;
+                 case "Password Mismatch":
+                     errorText.text = "Invalid Credentials";
+                     break;
 
-                default:
-                    break;
-            }
+                 default:
+                     break;
+             }
         }
 
-		loginBtn.interactable = true;
+        loginBtn.interactable = true;
 		www.Dispose();
     }
 

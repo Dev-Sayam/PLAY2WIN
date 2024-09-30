@@ -17,7 +17,8 @@ namespace KheloJeeto
 {
 	public class JeetoJokerManager : BaseGameManager
 	{
-		public static JeetoJokerManager Instance { get; private set; }
+		public Final_Data_Manager Final_Data_Manager;
+        public static JeetoJokerManager Instance { get; private set; }
 		public int SelectedCoinAmt { get => selectedCoinAmt; private set => selectedCoinAmt = value; }
 		public int TotalPointsSpent
 		{
@@ -114,9 +115,10 @@ namespace KheloJeeto
 		void Start()
 		{
 			//ShowResults();
-			
-			balance = int.Parse(mainData.receivedLoginData.Balance);
-			originalBalance = balance;
+
+			//balance = int.Parse(mainData.receivedLoginData.Balance);// need to open later
+			balance = 4000;
+            originalBalance = balance;
 			ShowBalance();
 			GetLastFewDrawDetailsJeetoJoker();
 			SendPendingDrawDetailsJeetoJoker();
@@ -511,7 +513,7 @@ namespace KheloJeeto
 			{
 				eachCard.ClearCard();
 			}
-
+            Final_Data_Manager.ResetData();
 			balance = originalBalance;
 			ShowBalance();
 			TotalPointsSpent = 0;
@@ -580,6 +582,7 @@ namespace KheloJeeto
 		public void DisappearWheelBoard()
 		{
 			boardWheelPanel.transform.DOLocalMoveX(-2755f, 1.25f);
+            Final_Data_Manager.ResetData();
 		}
 
 

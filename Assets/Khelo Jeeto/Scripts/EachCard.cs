@@ -40,11 +40,12 @@ namespace KheloJeeto
 
 		public void PlaceBetOnCard(int debitAmount)
 		{
-			if (JeetoJokerManager.Instance.DebitBalance(debitAmount))
+            int coin_Id = 0;
+            if (JeetoJokerManager.Instance.DebitBalance(debitAmount))
 			{
 				Debug.Log(cardAmt + "    " + debitAmount);
 				cardAmt += debitAmount;
-
+				
 				if (cardAmt == 0)
 				{
 					return;
@@ -58,31 +59,38 @@ namespace KheloJeeto
 
 				if (cardAmt >= 1000)
 				{
-					coinImage.sprite = allCoinsSprites[6];
+					coin_Id = 6;
+                    coinImage.sprite = allCoinsSprites[6];
 				}
 				else if (cardAmt >= 500)
 				{
-					coinImage.sprite = allCoinsSprites[5];
+                    coin_Id = 5;
+                    coinImage.sprite = allCoinsSprites[5];
 				}
 				else if (cardAmt >= 100)
 				{
-					coinImage.sprite = allCoinsSprites[4];
+                    coin_Id = 4;
+                    coinImage.sprite = allCoinsSprites[4];
 				}
 				else if (cardAmt >= 50)
 				{
-					coinImage.sprite = allCoinsSprites[3];
+                    coin_Id = 3;
+                    coinImage.sprite = allCoinsSprites[3];
 				}
 				else if (cardAmt >= 10)
 				{
-					coinImage.sprite = allCoinsSprites[2];
+                    coin_Id = 2;
+                    coinImage.sprite = allCoinsSprites[2];
 				}
 				else if (cardAmt >= 5)
 				{
-					coinImage.sprite = allCoinsSprites[1];
+                    coin_Id = 1;
+                    coinImage.sprite = allCoinsSprites[1];
 				}
 				else if (cardAmt >= 2)
 				{
-					coinImage.sprite = allCoinsSprites[0];
+                    coin_Id = 0;
+                    coinImage.sprite = allCoinsSprites[0];
 				}
 			}
 			else
@@ -90,9 +98,10 @@ namespace KheloJeeto
 				Debug.Log("<color =red>Not enough points</color>");
 				OnNotEnoughPointsEvent?.Invoke();
 			}
+			JeetoJokerManager.Instance.Final_Data_Manager.Initialize(int.Parse(Number), cardAmt,coin_Id);
 
 
-		}
+        }
 
 		public void ClearCard()
 		{

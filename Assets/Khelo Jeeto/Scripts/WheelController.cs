@@ -70,6 +70,7 @@ namespace KheloJeeto
             //winAnim.Play("WinImgWin");
 
             winCardObject[bet_number].SetActive(true);
+            winAnimatorCard[bet_number].enabled = true;
             winAnimatorCard[bet_number].Play("winCardAnim");
             winBoxCardObject.SetActive(true);
             winBoxCard.Play("winBoxAnim");
